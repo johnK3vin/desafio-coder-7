@@ -1,0 +1,18 @@
+.registerContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#formRegister{
+    width: 300px;
+    background-color: blanchedalmond;
+}
+.div-form{
+    margin: 4px;
+    width: 100%;
+}
+.formInput{
+    width: auto;
+}
