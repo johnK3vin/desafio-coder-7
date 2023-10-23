@@ -19,10 +19,17 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
         const data = await response.json();
 
-        if (response.status === 200 || response.status === 401 ) {
-            console.log("todo bien ")
+
+        if (response.status === 401 ) {
+            console.log("error 401 ")
+            Swal.fire({
+                icon: 'error',
+                title: 'El email o la contraseña son incorrectas, vuelva a intentarlo',
+                text: data.resultado
+            });
+        } else if(response.status === 200 ){
             window.location.href = "/home";
-        } else {
+        }else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',

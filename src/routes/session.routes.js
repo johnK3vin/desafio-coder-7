@@ -4,8 +4,14 @@ import { userModel } from "../dao/models/users.models.js";
 const sessionRouter = Router()
 
 sessionRouter.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const email = req.body.email
+    const password = req.body.password
     try {
+        const user = await userModel.findOne({ email: email });
+
+        if (!user) {
+            return res.status(401).json({ resultado: 'Email no registrado' });
+        }
         if (req.session && req.session.user) {
             if (req.session.user.email == email && req.session.user.password == password) {
                 const user = await userModel.findOne({ email: email });
@@ -19,12 +25,7 @@ sessionRouter.post('/login', async (req, res) => {
 
             }
         }
-        const user = await userModel.findOne({ email: email });
-
-        if (!user) {
-            return res.status(401).json({ resultado: 'Email no registrado' });
-        }
-
+    
         if (user.password !== password) {  
             return res.status(401).json({ resultado: 'Contraseña incorrecta' });
         }
